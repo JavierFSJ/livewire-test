@@ -18,18 +18,18 @@ class Save extends Component
     protected $rules = [
         'title' => 'required|min:2|max:255',
         'text' => 'required|min:2|max:255',
-        'image' => 'required|image'
+        'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
     ];
 
     public function submit()
-    {
+    {   
         $this->validate($this->rules);
 
         if ($this->category === null) {
             $this->category = Category::create([
                 'title' => $this->title,
                 'text' => $this->text,
-                'image' => 'Hola.jpg',
+                'image' => 'Default.jpg',
                 'slug' => str($this->title)->slug(),
             ]);
             $this->clearFields();
@@ -37,11 +37,12 @@ class Save extends Component
             $this->category->update([
                 'title' => $this->title,
                 'text' => $this->text,
-                'image' => 'Hola.jpg',
+                'image' => 'Default.jpg',
                 'slug' => str($this->title)->slug(),
             ]);
 
         }
+
         $this->emit('created');
 
         //upload

@@ -2,17 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title' , 'slug' , 'image' , 'text'];
+    protected $fillable = ['title', 'slug', 'image', 'text'];
 
     public function post()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function imageUrl()
+    {
+        return URL::asset("storage/imagenes/".$this->image);
     }
 }

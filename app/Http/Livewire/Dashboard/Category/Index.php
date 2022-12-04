@@ -23,7 +23,7 @@ class Index extends Component
         $this->confirmingUserDeletion = false;
     }
 
-    public function showDialog(Category $category){
+    public function selectCategory(Category $category){
         $this->confirmingUserDeletion = true;
         $this->categoryDelete = $category;
     }
@@ -31,7 +31,7 @@ class Index extends Component
     public function render()
     {   
         return view('livewire.dashboard.category.index' , [
-            'categories' => Category::paginate(5),
+            'categories' => Category::orderBy('id', 'DESC')->paginate(5),
         ]);
     }
 }
